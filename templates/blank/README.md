@@ -1,0 +1,3 @@
+# Blank
+
+A blank project.
