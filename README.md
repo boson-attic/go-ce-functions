@@ -2,7 +2,7 @@
 
 THIS IS A PROOF OF CONCEPT IMPLEMENTATION
 
-This stack provides a Go framework for executing a function that handles [CloudEvents Specification](https://github.com/cloudevents/spec).  The function's method signature is any of those supported by the [CloudEvents Go SDK](https://godoc.org/github.com/cloudevents/sdk-go).
+This stack provides a Go framework for executing a function that handles [CloudEvents](https://github.com/cloudevents/spec).  The function's method signature is any of those supported by the [CloudEvents Go SDK](https://godoc.org/github.com/cloudevents/sdk-go).
 
 
 ## Getting Started
@@ -42,45 +42,7 @@ $ curl -X POST -d '{"message": "OK"}' \
 
 ## Updating the Package Name
 
-By default, a newly initialized Go Functions project is defined as package `function`.  While updating is not required, if this function is expected to be imported or published, the default module should be updated to reflect a proper Go module by either updating `go.mod` manually or recreating it using `go mod init`.  The `package` statements in the default `handler.go` and `handler_test.go` files should be updated as well.
-
-## Example
-
-Initializing a new funciton instance is 
-
-
-## Templates
-
-Three configurations are provided as templates: HTTP, CloudEvent, and Blank.
-
-### 'simple' (default)
-
-The minimal runnable stack, suitable for use as a chron job or for experienced function developers who would prefer to start with the minimum possible preexisting tooling.
-
-
-### 'http'
-
-Invokes an HTTP handler function.  Suitable as a starting point for simple, stateless HTTP event handling tasks.
-
-### 'cloudevents'
-
-Invokes a function which handles CloudEvents requests.  The provided default configuration expects CloudEvents over the HTTP protocol serialized as JSON.
-
-
-## Getting Started
-
-```console
-mkdir my-function
-cd my-function
-appsody init experimental/go cloudevents
-```
-
-This will initialize a CloudEvents listener in Go.  To run the container.
-
-```console
-appsody run
-```
-The code will be tested and deployed in a local container.  Changes to local source code will trigger a build and redeploy.
+By default, a newly initialized Go Functions project is defined as package `function`.  While updating is not required, if this function is expected to be imported as a Go module, the default module should be updated to reflect a proper Go module by either updating `go.mod` manually or recreating it using `go mod init`.  The `package` statements in the default `handler.go` and `handler_test.go` files should be updated as well.
 
 ## Building Appsody from Source
 
