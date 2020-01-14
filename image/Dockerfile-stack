@@ -2,24 +2,25 @@ FROM golang:alpine
 RUN apk add bash
 
 ENV APPSODY_PROJECT_DIR=/project
-ENV APPSODY_MOUNTS=.:/project/user-app
-ENV APPSODY_DEPS=/project/user-app/vendor
-ENV APPSODY_WATCH_DIR=/project/user-app
+ENV APPSODY_MOUNTS=.:/project/function
+ENV APPSODY_WATCH_DIR=/project/function
 
 ENV APPSODY_TEST="go test ./..."
 ENV APPSODY_TEST_ON_CHANGE="$APPSODY_TEST"
 
-ENV APPSODY_RUN="go run ./cmd/run"
+ENV APPSODY_RUN="go run ."
 ENV APPSODY_RUN_ON_CHANGE="$APPSODY_RUN"
 
-ENV APPSODY_DEBUG="VERBOSE=true go run ./cmd/run"
+ENV APPSODY_DEBUG="VERBOSE=true go run ."
 ENV APPSODY_DEBUG_ON_CHENGE="$APPSODY_DEBUG"
 
 COPY ./LICENSE /licenses/
 COPY ./project /project
 COPY ./config  /config
+COPY ./main.go /project/
+COPY ./go.mod  /project/
 
-WORKDIR /project/user-app
+WORKDIR /project
 
 ENV PORT=8080
 

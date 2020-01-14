@@ -9,7 +9,7 @@ import (
 
 	cloudevents "github.com/cloudevents/sdk-go"
 
-	"function"
+	function "function"
 )
 
 var (

@@ -1,10 +1,10 @@
-name: Go Functions
+name: Go Service
 version: 0.0.1
-description: Go Functions Runtime
+description: Go Service Runtime
 license: Apache-2.0
 language: go
 maintainers:
   - name: lkingland
     email: lkingland2038@gmail.com
     github-id: lkingland
-default-template: http
+default-template: default

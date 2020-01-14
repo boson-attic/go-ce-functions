@@ -1,4 +1,4 @@
-package function_test
+package function
 
 import (
 	"context"
@@ -6,10 +6,7 @@ import (
 	"net/url"
 	"testing"
 
-	"function"
-
 	cloudevents "github.com/cloudevents/sdk-go"
-	"github.com/google/uuid"
 )
 
 // TestHandle ensures that Handle accepts a valid CloudEvent without error.
@@ -21,7 +18,7 @@ func TestHandle(t *testing.T) {
 	event.SetSource("http://localhost:8080/")
 
 	// Invoke the defined handler.
-	if err := function.Handle(context.Background(), event); err != nil {
+	if err := Handle(context.Background(), event); err != nil {
 		t.Fatal(err)
 	}
 }
@@ -31,7 +28,7 @@ func TestInvalidInput(t *testing.T) {
 	invalidEvent := cloudevents.NewEvent() // missing required fields
 
 	// Attempt to handle the invalid event, ensuring that the handler validats events.
-	if err := function.Handle(context.Background(), invalidEvent); err == nil {
+	if err := Handle(context.Background(), invalidEvent); err == nil {
 		t.Fatalf("handler did not generate error on invalid event.  Missing .Validate() check?")
 	}
 }
@@ -44,7 +41,7 @@ func TestE2E(t *testing.T) {
 		receiver cloudevents.Client
 		address  string             // at which the receiver beings listening (os-chosen port)
 		sender   cloudevents.Client // sends an event to the receiver via HTTP
-		handler  = function.Handle  // test the user-defined Handler
+		handler  = Handle           // test the user-defined Handler
 		err      error
 	)
 
@@ -107,7 +104,7 @@ func newEvent(t *testing.T, data TestData) (event cloudevents.Event) {
 	contentType := "application/json"
 	event = cloudevents.Event{
 		Context: cloudevents.EventContextV01{
-			EventID:     uuid.New().String(),
+			EventID:     "test-event-01",
 			EventType:   "com.cloudevents.sample.sent",
 			Source:      cloudevents.URLRef{URL: *source},
 			ContentType: &contentType,
