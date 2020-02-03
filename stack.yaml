@@ -1,6 +1,6 @@
-name: Go Service
+name: Go FaaS
 version: 0.0.1
-description: Go Service Runtime
+description: Go Function Runtime
 license: Apache-2.0
 language: go
 maintainers:
