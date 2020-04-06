@@ -1,5 +1,9 @@
 from golang:alpine
-COPY . /src
-WORKDIR /src/function
-RUN go build -o function
-ENTRYPOINT ["/src/function/function"]
+
+COPY ./function /project/function
+COPY ./main.go /project/
+COPY ./go.mod /project/
+WORKDIR /project
+
+RUN go build -o f
+ENTRYPOINT ["/project/f"]
