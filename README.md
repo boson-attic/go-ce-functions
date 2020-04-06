@@ -54,6 +54,35 @@ $ GO111MODULE=off make build-linux
 $ ln -s $PWD/build/appsody-0.0.0-linux-amd64 /usr/local/bin/appsody
 ```
 
+# Development
+
+## Releasing Stack Updates
+
+Version the stack in stack.yaml
+
+Package the stack updates
+```
+appsody stack package --image-namespace boson --image-registry quay.io
+```
+Tag the new version git to match
+```
+git tag v[major].[minor].[patch]
+```
+Push the resultant images to the registry.
+```
+docker push quay.io/boson/go-ce-functions:latest
+docker push quay.io/boson/go-ce-functions:[major]
+docker push quay.io/boson/go-ce-functions:[major].[minor]
+docker push quay.io/boson/go-ce-functions:[major].[minor].[patch]
+```
+Create a release of the given tag which includes the template archive.
+```
+hub release create -a ~/.appsody/stacks/dev.local/go-ce-functions.[tag].templates.default.tar.gz -m "[tag]" [tag]
+```
+
+The stack is now versioned and released, ready to be included in a released Stack index.  See `github.com/boson-project/stacks`, which is the stack index, and includes instructions on releasing.
+
+
 ## License
 
 This stack is licensed under the [Apache 2.0](./image/LICENSE) license
